@@ -1,0 +1,147 @@
+@import url('https://rsms.me/inter/inter.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Dark mode variables */
+    --dark-container-bg: rgba(255, 255, 255, 0.05);
+    --dark-border: rgba(255, 255, 255, 0.1);
+    
+    /* Light mode variables */
+    --light-container-bg: rgba(255, 255, 255, 0.8);
+    --light-border: rgba(0, 0, 0, 0.06);
+  }
+
+  body {
+    font-family: 'Inter var', system-ui, -apple-system, sans-serif;
+  }
+
+  .dark {
+    @apply bg-gradient-to-br from-space-dark via-space-dark-mid to-space-dark-light text-text-primary;
+  }
+
+  .light {
+    @apply bg-gradient-to-br from-light-bg-start via-light-bg-mid to-light-bg-end text-light-text-primary;
+  }
+}
+
+@layer components {
+  .glassmorphic {
+    @apply backdrop-blur-md border rounded-xl transition-all duration-300;
+  }
+
+  .dark .glassmorphic {
+    @apply bg-[var(--dark-container-bg)] border-[var(--dark-border)] shadow-cosmic hover:shadow-float;
+  }
+
+  .light .glassmorphic {
+    @apply bg-[var(--light-container-bg)] border-[var(--light-border)] shadow-light hover:shadow-light-float;
+  }
+  
+  .custom-scrollbar {
+    scrollbar-width: thin;
+  }
+
+  .dark .custom-scrollbar {
+    scrollbar-color: theme('colors.primary') transparent;
+  }
+
+  .light .custom-scrollbar {
+    scrollbar-color: theme('colors.light-primary') transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-full;
+  }
+
+  .light .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-light-primary rounded-full;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .button-glow {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .dark .button-glow::after {
+    @apply content-[''] absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(circle at center, theme('colors.primary/30') 0%, transparent 70%);
+  }
+
+  .light .button-glow::after {
+    @apply content-[''] absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(circle at center, theme('colors.light-primary/30') 0%, transparent 70%);
+  }
+
+  .button-glow:hover::after {
+    @apply opacity-100;
+  }
+
+  .input-field {
+    @apply rounded-lg px-4 py-2 w-full transition-all duration-300;
+  }
+
+  .dark .input-field {
+    @apply bg-space-dark-mid/50 border-border focus:ring-2 focus:ring-primary focus:ring-opacity-50 
+    focus:outline-none placeholder:text-text-secondary/50;
+  }
+
+  .light .input-field {
+    @apply bg-white border-light-border focus:ring-2 focus:ring-light-primary focus:ring-opacity-50 
+    focus:outline-none placeholder:text-light-text-secondary/50;
+  }
+
+  .btn-primary {
+    @apply px-6 py-2 rounded-lg font-medium transition-all duration-300
+    disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .dark .btn-primary {
+    @apply bg-gradient-to-r from-primary to-secondary text-white hover:shadow-glow;
+  }
+
+  .light .btn-primary {
+    @apply bg-gradient-to-r from-light-primary to-light-secondary text-white hover:shadow-light-glow;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent;
+}
+
+.dark .gradient-text {
+  @apply bg-gradient-to-r from-primary to-secondary;
+}
+
+.light .gradient-text {
+  @apply bg-gradient-to-r from-light-primary to-light-secondary;
+}
